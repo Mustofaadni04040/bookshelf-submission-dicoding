@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookshelfApps</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- Section Header Start -->
+    <section class="shadow-sm h-16 border-b-[1px]">
+      <div class="container p-5 mx-auto lg:py-3">
+        <h1 class="text-base font-sans font-semibold md:text-xl lg:text-2xl">
+          Bookshelf<span class="text-sky-500">Apps</span>
+        </h1>
+      </div>
+    </section>
+    <!-- Section Header End -->
+
+    <main>
+      <!-- Section Add Start -->
+      <section class="add-book mt-7">
+        <div class="container px-5 mx-auto">
+          <div class="flex w-full justify-between items-center">
+            <button
+              class="btn-modal flex justify-center items-center w-8 h-8 border bg-white rounded hover:bg-sky-500 hover:text-white hover:border-none transition duration-300 ease-in-out md:w-10 md:h-10 lg:w-12 lg:h-12"
+              onclick="handlerModal()"
+            >
+              <i class="ri-add-line text-xl lg:text-2xl"></i>
+            </button>
+            <div class="flex relative gap-2 items-center" id="search-book">
+              <p
+                class="text-sm opacity-0 text-red-500 absolute top-10 lg:top-14 lg:text-base"
+                id="not-found-book"
+              >
+                Pencarian tidak ditemukan!
+              </p>
+              <input
+                id="search-book-title"
+                type="text"
+                class="border p-1 rounded placeholder:text-sm focus:outline-none focus:ring-1 focus:ring-sky-500 focus:text-slate-500 md:w-80 lg:w-[400px] lg:p-3"
+                placeholder="Cari judul, tahun dan penulis buku disini..."
+              />
+              <button
+                id="search-submit"
+                class="py-2 px-4 block text-sm bg-sky-500 rounded text-white hover:bg-sky-600 cursor-pointer lg:text-xl lg:px-6"
+                type="submit"
+              >
+                <i class="ri-search-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section Add End -->
+
+      <!-- section modal form start-->
+      <section class="modal hidden">
+        <div
+          class="fixed w-full h-full top-0 left-0 z-50 flex items-center justify-center"
+        >
+          <div
+            class="modal-overlay absolute w-full h-full z-50 bg-gray-900 opacity-50"
+            onclick="handlerModal()"
+          ></div>
+
+          <div
+            class="modal-container bg-white w-11/12 md:max-w-md lg:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto"
+          >
+            <form class="modal-content py-4 text-left px-6">
+              <div class="mb-5">
+                <h1 class="text-2xl font-bold">Masukan Buku Baru</h1>
+              </div>
+
+              <!-- modal body -->
+              <div class="mb-5">
+                <div class="input mb-3">
+                  <label for="book-title" class="text-sm font-medium"
+                    >Judul Buku</label
+                  >
+                  <input
+                    type="text"
+                    id="book-title"
+                    class="border w-full p-1 rounded focus:outline-none focus:ring-1 focus:ring-sky-500 focus:text-slate-500"
+                    placeholder="Masukan judul buku..."
+                    required
+                  />
+                </div>
+                <div class="input mb-3">
+                  <label for="book-author" class="text-sm font-medium"
+                    >Penulis Buku</label
+                  >
+                  <input
+                    type="text"
+                    id="book-author"
+                    class="border w-full p-1 rounded focus:outline-none focus:ring-1 focus:ring-sky-500 focus:text-slate-500"
+                    placeholder="Masukan penulis buku..."
+                    required
+                  />
+                </div>
+                <div class="input mb-3">
+                  <label for="book-year" class="text-sm font-medium"
+                    >Tahun</label
+                  >
+                  <input
+                    type="date"
+                    id="book-year"
+                    class="border w-full p-1 rounded focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    placeholder="Masukan Judul Buku..."
+                    name="date"
+                    required
+                  />
+                </div>
+
+                <div class="input-inline flex gap-2">
+                  <label for="book-status" class="text-sm cursor-pointer"
+                    >Selesai Dibaca</label
+                  >
+                  <input
+                    type="checkbox"
+                    id="book-status"
+                    class="cursor-pointer"
+                  />
+                </div>
+              </div>
+
+              <!-- modal footer -->
+              <div class="flex justify-end pt-2">
+                <button
+                  class="modal-add px-4 bg-transparent p-3 rounded-lg text-sky-500 hover:bg-gray-100 hover:text-sky-400 mr-2 cursor-pointer"
+                  type="submit"
+                  id="submit-book"
+                >
+                  Tambah
+                </button>
+                <button
+                  class="modal-close px-4 bg-sky-500 p-3 rounded-lg text-white hover:bg-sky-400 cursor-pointer"
+                  onclick="handlerModal()"
+                  type="button"
+                >
+                  Batal
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+      <!-- section modal form End-->
+
+      <!-- section bookUnCompleted Start-->
+      <section class="mt-10">
+        <div class="container mx-auto px-5 max-w-2xl">
+          <h1
+            class="text-lg font-sans font-semibold mb-3 text-slate-700 lg:text-2xl"
+          >
+            Belum diselesaikan
+          </h1>
+          <div id="books-uncompleted">
+            <div
+              class="book-card relative border-slate-200 rounded-xl p-5 shadow-md bg-red-300"
+            >
+              <button
+                class="flex items-center justify-center absolute w-8 h-8 -top-3 -right-3 rounded-full border-2 border-white bg-red-500 hover:bg-red-600 transition duration-300 ease-in-out"
+                id="delete-button"
+              >
+                <i
+                  class="ri-close-line text-xl cursor-pointer text-white transition duration-200"
+                ></i>
+              </button>
+              <div class="flex items-center justify-between">
+                <div id="book-info">
+                  <h3 class="text-lg font-bold text-slate-600 mb-1 lg:text-2xl">
+                    Book Title
+                  </h3>
+                  <p class="text-sm text-slate-600 lg:text-lg">
+                    Penulis: Jhon Doe
+                  </p>
+                  <p class="text-sm text-slate-600 lg:text-lg">Tahun: 2022</p>
+                </div>
+                <div class="action">
+                  <i
+                    class="ri-checkbox-circle-line text-3xl cursor-pointer text-green-600 hover:text-green-700 transition duration-200 lg:text-4xl"
+                    id="complete-button"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- section bookUnCompleted End-->
+
+      <!-- section bookCompleted Start-->
+      <section class="mt-10">
+        <div class="container mx-auto px-5 max-w-2xl">
+          <h1
+            class="text-lg font-sans font-semibold mb-3 text-slate-700 lg:text-2xl"
+          >
+            Diselesaikan
+          </h1>
+          <div id="books-completed">
+            <div
+              class="book-card relative border-slate-200 rounded-xl p-5 shadow-md bg-green-300"
+            >
+              <button
+                class="flex items-center justify-center absolute w-8 h-8 -top-3 -right-3 rounded-full border-2 border-white bg-red-500 hover:bg-red-600 transition duration-300 ease-in-out"
+                id="delete-button"
+              >
+                <i
+                  class="ri-close-line text-xl cursor-pointer text-white transition duration-200"
+                ></i>
+              </button>
+              <div class="book-item flex items-center justify-between">
+                <div id="book-info">
+                  <h3 class="text-lg font-bold text-slate-600 mb-1 lg:text-2xl">
+                    Book Title
+                  </h3>
+                  <p class="text-sm text-slate-600 lg:text-lg">
+                    Penulis: Jhon Doe
+                  </p>
+                  <p class="text-sm text-slate-600 lg:text-lg">Tahun: 2022</p>
+                </div>
+                <div class="action flex">
+                  <i
+                    class="ri-arrow-go-back-fill text-3xl cursor-pointer text-red-600 hover:text-red-700 transition duration-200 lg:text-4xl"
+                    id="undo-button"
+                  ></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- section bookCompleted End-->
+    </main>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
